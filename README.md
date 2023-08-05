@@ -50,7 +50,7 @@ The following settings are supported:
 - `[yaml].editor.formatOnType`: Enable/disable on type indent and auto formatting array
 - `yaml.disableDefaultProperties`: Disable adding not required properties with default values into completion text
 - `yaml.suggest.parentSkeletonSelectedFirst`: If true, the user must select some parent skeleton first before autocompletion starts to suggest the rest of the properties.\nWhen yaml object is not empty, autocompletion ignores this setting and returns all properties and skeletons.
-- `yaml.style.flowMapping` : Forbids flow style mappings if set to `forbid` 
+- `yaml.style.flowMapping` : Forbids flow style mappings if set to `forbid`
 - `yaml.style.flowSequence` : Forbids flow style sequences if set to `forbid`
 - `yaml.keyOrdering` : Enforces alphabetical ordering of keys in mappings when set to `true`. Default is `false`
 
@@ -59,11 +59,7 @@ The following settings are supported:
 In order to use the custom tags in your YAML file you need to first specify the custom tags in the setting of your code editor. For example, we can have the following custom tags:
 
 ```yaml
-"yaml.customTags": [
-    "!Scalar-example scalar",
-    "!Seq-example sequence",
-    "!Mapping-example mapping"
-]
+'yaml.customTags': ['!Scalar-example scalar', '!Seq-example sequence', '!Mapping-example mapping']
 ```
 
 The !Scalar-example would map to a scalar custom tag, the !Seq-example would map to a sequence custom tag, the !Mapping-example would map to a mapping custom tag.
@@ -94,9 +90,7 @@ myProject
 you can do
 
 ```yaml
-yaml.schemas: {
-    "https://json.schemastore.org/composer": "/myYamlFile.yaml"
-}
+yaml.schemas: { 'https://json.schemastore.org/composer': '/myYamlFile.yaml' }
 ```
 
 and that will associate the composer schema with myYamlFile.yaml.
@@ -110,93 +104,73 @@ and that will associate the composer schema with myYamlFile.yaml.
 When associating a schema it should follow the format below
 
 ```yaml
-yaml.schemas: {
-    "url": "globPattern",
-    "Kubernetes": "globPattern"
-}
+yaml.schemas: { 'url': 'globPattern', 'Kubernetes': 'globPattern' }
 ```
 
 e.g.
 
 ```yaml
-yaml.schemas: {
-    "https://json.schemastore.org/composer": "/*"
-}
+yaml.schemas: { 'https://json.schemastore.org/composer': '/*' }
 ```
 
 e.g.
 
 ```yaml
-yaml.schemas: {
-    "kubernetes": "/myYamlFile.yaml"
-}
+yaml.schemas: { 'kubernetes': '/myYamlFile.yaml' }
 ```
 
 e.g.
 
 ```yaml
-yaml.schemas: {
-    "https://json.schemastore.org/composer": "/*",
-    "kubernetes": "/myYamlFile.yaml"
-}
+yaml.schemas: { 'https://json.schemastore.org/composer': '/*', 'kubernetes': '/myYamlFile.yaml' }
 ```
 
 On Windows with full path:
 
 ```yaml
-yaml.schemas: {
-    "C:\\Users\\user\\Documents\\custom_schema.json": "someFilePattern.yaml",
-}
+yaml.schemas: { "C:\\Users\\user\\Documents\\custom_schema.json": 'someFilePattern.yaml' }
 ```
 
 On Mac/Linux with full path:
 
 ```yaml
-yaml.schemas: {
-    "/home/user/custom_schema.json": "someFilePattern.yaml",
-}
+yaml.schemas: { '/home/user/custom_schema.json': 'someFilePattern.yaml' }
 ```
 
 Since `0.11.0` YAML Schemas can be used for validation:
 
 ```yaml
- "/home/user/custom_schema.yaml": "someFilePattern.yaml"
+'/home/user/custom_schema.yaml': 'someFilePattern.yaml'
 ```
 
 A schema can be associated with multiple globs using a json array, e.g.
 
 ```yaml
-yaml.schemas: {
-    "kubernetes": ["filePattern1.yaml", "filePattern2.yaml"]
-}
+yaml.schemas: { 'kubernetes': ['filePattern1.yaml', 'filePattern2.yaml'] }
 ```
 
 e.g.
 
 ```yaml
-"yaml.schemas": {
-    "http://json.schemastore.org/composer": ["/*"],
-    "file:///home/johnd/some-schema.json": ["some.yaml"],
-    "../relative/path/schema.json": ["/config*.yaml"],
-    "/Users/johnd/some-schema.json": ["some.yaml"],
-}
+'yaml.schemas':
+  {
+    'http://json.schemastore.org/composer': ['/*'],
+    'file:///home/johnd/some-schema.json': ['some.yaml'],
+    '../relative/path/schema.json': ['/config*.yaml'],
+    '/Users/johnd/some-schema.json': ['some.yaml'],
+  }
 ```
 
 e.g.
 
 ```yaml
-"yaml.schemas": {
-    "kubernetes": ["/myYamlFile.yaml"]
-}
+'yaml.schemas': { 'kubernetes': ['/myYamlFile.yaml'] }
 ```
 
 e.g.
 
 ```yaml
-"yaml.schemas": {
-    "http://json.schemastore.org/composer": ["/*"],
-    "kubernetes": ["/myYamlFile.yaml"]
-}
+'yaml.schemas': { 'http://json.schemastore.org/composer': ['/*'], 'kubernetes': ['/myYamlFile.yaml'] }
 ```
 
 #### Multi root schema association:
@@ -206,21 +180,16 @@ You can also use relative paths when working with multi root workspaces.
 Suppose you have a multi root workspace that is laid out like:
 
 ```yaml
-My_first_project:
-   test.yaml
-   my_schema.json
-My_second_project:
-   test2.yaml
-   my_schema2.json
+My_first_project: test.yaml
+  my_schema.json
+My_second_project: test2.yaml
+  my_schema2.json
 ```
 
 You must then associate schemas relative to the root of the multi root workspace project.
 
 ```yaml
-yaml.schemas: {
-    "My_first_project/my_schema.json": "test.yaml",
-    "My_second_project/my_schema2.json": "test2.yaml"
-}
+yaml.schemas: { 'My_first_project/my_schema.json': 'test.yaml', 'My_second_project/my_schema2.json': 'test2.yaml' }
 ```
 
 `yaml.schemas` allows you to specify json schemas that you want to validate against the yaml that you write. Kubernetes is an optional field. It does not require a url as the language server will provide that. You just need the keyword kubernetes and a glob pattern.
@@ -230,9 +199,7 @@ yaml.schemas: {
 Suppose a file is meant to be a component of an existing schema (like a `job.yaml` file in a circleci orb), but there isn't a standalone schema that you can reference. If there is a nested schema definition for this subcomponent, you can reference it using a url fragment, e.g.:
 
 ```yaml
-yaml.schemas: {
-    "https://json.schemastore.org/circleciconfig#/definitions/jobs/additionalProperties": "/src/jobs/*.yaml",
-}
+yaml.schemas: { 'https://json.schemastore.org/circleciconfig#/definitions/jobs/additionalProperties': '/src/jobs/*.yaml' }
 ```
 
 > **Note**
@@ -261,6 +228,7 @@ or absolute path:
 ### Schema priority
 
 The following is the priority of schema association in highest to lowest priority:
+
 1. Modeline
 2. CustomSchemaProvider API
 3. yaml.settings
